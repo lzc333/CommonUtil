@@ -2,6 +2,7 @@ package com.yfve.common.util
 
 import android.os.Environment
 import java.io.*
+import kotlin.concurrent.fixedRateTimer
 
 /**
  * 文件操作工具类
@@ -14,7 +15,7 @@ object FileUtils {
     fun getRootDir(): String {
         return if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
             Environment.getExternalStorageDirectory()
-                    .absolutePath
+                .absolutePath
         } else {
             ""
         }
@@ -200,7 +201,6 @@ object FileUtils {
                 copyDirTo(it, theDestDir)
             }
         }
-
         return true
     }
 
@@ -236,8 +236,10 @@ object FileUtils {
                     moveFileTo(it, oneDestFile)
                     delFile(it)
                 } else {
-                    val oneDestFile = File(destDir.path + "//"
-                            + it.name)
+                    val oneDestFile = File(
+                        destDir.path + "//"
+                                + it.name
+                    )
                     moveDirTo(it, oneDestFile)
                     delDir(it.absolutePath)
                 }
@@ -248,7 +250,33 @@ object FileUtils {
 
     }
 
+    @Throws(Exception::class)
+    fun copyFile(sourceFile: String, targetFile: String, progressCallback: (Int) -> Unit) {
+        LogUtil.d(TAG, "sourceFile = $sourceFile  targetFile = $targetFile")
+        val file = File(sourceFile)
+        val totalLength = file.length()
+        val input = FileInputStream(sourceFile)
+        val output = FileOutputStream(targetFile)
+        var copyTotal = 0L
+        var len: Int
+        val byteArray = ByteArray(1024 * 100)
 
+        var isCallBack = true
+        val timer = fixedRateTimer("", false, 0, 1500) {
+            isCallBack = true
+        }
+        while (input.read(byteArray).also { len = it } != -1) {
+            copyTotal += len
+            output.write(byteArray, 0, len)
+            output.flush()
+            if (isCallBack) {
+                isCallBack = false
+                progressCallback((copyTotal * 100 / totalLength).toInt())
+            }
+        }
+        timer.cancel()
+        progressCallback(100)
+    }
 
 }
 
