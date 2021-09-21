@@ -5,14 +5,14 @@ import android.content.SharedPreferences
 import android.util.Log
 
 
-class SharedPreferenceUtil {
+class SharedPreferenceUtils {
     private val tag = "SharedPreferenceUtil"
     private var isInit = false
     private val mSpCache = mutableMapOf<String, SpInstance>()
 
     companion object {
-        val INSTANCE: SharedPreferenceUtil by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
-            SharedPreferenceUtil()
+        val INSTANCE: SharedPreferenceUtils by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+            SharedPreferenceUtils()
         }
     }
 
