@@ -1,4 +1,4 @@
-package apk98.com.androidutilslib.utils
+package com.yfve.common.util
 
 import android.os.Environment
 import java.io.*

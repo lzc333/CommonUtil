@@ -1,4 +1,4 @@
-package com.yfve.common.view
+package com.yfve.common.util
 
 import android.view.View
 import android.widget.CompoundButton
