@@ -32,19 +32,26 @@
             android:layout_gravity="center"
             android:text="testGone2"
             />
+        <Button
+            android:id="@+id/recovery_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="recovery"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hello World!"
             android:layout_gravity="center"
-            yfve:isVisibleAnimator="@{testVm.isVisible}"
+            yfve:isVisible="@{testVm.isVisible}"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hello World2!"
             android:layout_gravity="center"
-            yfve:isVisible="@{testVm.isVisible2}"
+            yfve:isVisibleAnimator="@{testVm.isVisible2}"
             />
       <!--  android:visibility="@{testVm.isVisible2?View.VISIBLE:View.GONE}"-->
 

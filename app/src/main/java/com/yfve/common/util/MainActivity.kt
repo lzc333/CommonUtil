@@ -32,6 +32,13 @@ class MainActivity : AppCompatActivity() {
             Log.d("MainActivity","click test2Bt")
             viewModel?.isVisible2?.value = false
         }
+
+        binding.recoveryBt.setOnClickListener {
+            Log.d("MainActivity","click recovery")
+            viewModel?.isVisible?.value = true
+            viewModel?.isVisible2?.value = true
+        }
+
         exampleSharedPreference()
     }
 
